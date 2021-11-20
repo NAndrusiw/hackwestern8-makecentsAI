@@ -1,7 +1,7 @@
 {
     "manifest_version" : 3,
-    "name" : "Biggus Dickus",
-    "description" : "Nathan has a fat cock",
+    "name" : "Biggus",
+    "description" : "Nathan has a ",
     "version" : "1.0.0",
     "icons" : {
         "128" : "icon_128.png"
@@ -15,6 +15,13 @@
         {
         "js" : ["content.js"],
         "matches" : ["<all_urls>"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [ "terms.json" ],
+            "matches": ["<all_urls>"],
+            "extension_ids": []
         }
     ]
 }
