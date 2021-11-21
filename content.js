@@ -1,50 +1,69 @@
-// Get location of all instances of term
-var result = document.evaluate(("//text()[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'inflation')]"), document, null, XPathResult.ANY_TYPE, null);
-var node, nodes = [];
+url = chrome.runtime.getURL('terms.json');
+counter = 0;
+found = []
 
-// Add all nodes to node array
-while (node = result.iterateNext()){
-    if (!(node.textContent.includes("{") || node.textContent.includes("}"))){
-        nodes.push(node);
-    }
-}
+fetch(url)
+.then((response) => response.json()) // file contains json
+.then((json) => {
+    setTimeout(function() {
+        for (var i = 0; i < json.length; i++){
 
-console.log("HIGHLIGHTER")
-// Add in line html
-setTimeout(function() {
-    for (const n of nodes){
-        var s = n.textContent;
-        var parentNode = n.parentNode;
-        var s1 = s.replace("inflation", '<span style="background-color: #FF0000">inflation</span>');
-        var tempNode = document.createTextNode(s1);
-        n.innerHTML = s1
-        console.log(n)
-    }
-  }, 5000);
+            // Entry
+            var obj = json[i];
+            var term = String(obj.term);
 
-// OY
+            // Get location of all instances of term
+            var result = document.evaluate(("//text()[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" + term + "')]"), document, null, XPathResult.ANY_TYPE, null);
+            var node, nodes = [];
 
-// url = chrome.runtime.getURL('terms.json');
-// counter = 0;
-// found = []
-// console.log(document);
+            // Add all nodes to node array
+            while (node = result.iterateNext()){
+                if (!(node.textContent.includes("{") || node.textContent.includes("}"))){
+                    nodes.push(node);
+                }
+            }
 
-// fetch(url)
-// .then((response) => response.json()) // file contains json
-// .then((json) => {
-//     setTimeout(function() {
-        
-//         for (var i = 0; i < json.length; i++){
-//             var obj = json[i];
-//             if ((document.documentElement.textContent || document.documentElement.innerText)
-//             .indexOf(obj.term) > -1) {
-//                 console.log(obj.term + ": " + obj.description)
-//                 found[counter];
-//                 counter++;
-//             }
-//         }
-//         console.log(counter);
-//     }, 5000);
-// }); 
+            // Add in line html
+            for (var j = 0; j < nodes.length; j++){
+                var oldNode = nodes[j];
+                var s = oldNode.nodeValue;
+                var parentNode = oldNode.parentNode;
+                var effects = '<span style="background-color: #C9FF9F">' + term + '</span>'
+                var s1 = s.replace(term, effects);
+                if (parentNode){
+                    parentNode.innerHTML = s1
+                }
+                else {
+                    oldNode.innerHTML = s1
+                }
+            }
+        }
+    }, 5000);
+});
+
+        // OY
+
+        // url = chrome.runtime.getURL('terms.json');
+        // counter = 0;
+        // found = []
+        // console.log(document);
+
+        // fetch(url)
+        // .then((response) => response.json()) // file contains json
+        // .then((json) => {
+        //     setTimeout(function() {
+                
+        //         for (var i = 0; i < json.length; i++){
+        //             var obj = json[i];
+        //             if ((document.documentElement.textContent || document.documentElement.innerText)
+        //             .indexOf(obj.term) > -1) {
+        //                 console.log(obj.term + ": " + obj.description)
+        //                 found[counter];
+        //                 counter++;
+        //             }
+        //         }
+        //         console.log(counter);
+        //     }, 5000);
+        // }); 
 
 
