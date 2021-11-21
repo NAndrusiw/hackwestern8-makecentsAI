@@ -10,10 +10,10 @@ fetch(url)
 
             // Entry
             var obj = json[i];
-            var term = String(obj.term);
+            var term = String(obj.term).toLowerCase();
 
             // Get location of all instances of term
-            var result = document.evaluate(("//text()[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" + term + "')]"), document, null, XPathResult.ANY_TYPE, null);
+            var result = document.evaluate(("//text()[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" + term +"')]"), document, null, XPathResult.ANY_TYPE, null);
             var node, nodes = [];
 
             // Add all nodes to node array
