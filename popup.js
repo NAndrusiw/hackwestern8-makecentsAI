@@ -8,6 +8,7 @@ function myFunction(){
     document.getElementById("title").style.fontSize = '20px';
     document.getElementById("title").style.fontFamily = "'Montserrat', sans-serif";
     document.getElementById("title").style.paddingBottom = "7px";
+    document.getElementById("title").style.fontWeight = "600";
 
     // Variables
     // Get terms from local json
