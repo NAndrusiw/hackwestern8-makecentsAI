@@ -1,0 +1,19 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+.title{
+    color: rgb(82, 82, 82);
+    font-size: 20px;
+}
+
+.term{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.def{
+    color: rgb(82, 82, 82);
+    font-size: 14px;
+}

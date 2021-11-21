@@ -4,6 +4,11 @@ document.getElementById("title").addEventListener("DOMContentLoaded", myFunction
 // Function
 function myFunction(){
 
+    document.getElementById("title").style.color = "rgb(82, 82, 82)";
+    document.getElementById("title").style.fontSize = '20px';
+    document.getElementById("title").style.fontFamily = "'Montserrat', sans-serif";
+    document.getElementById("title").style.paddingBottom = "7px";
+
     // Variables
     // Get terms from local json
     url = chrome.runtime.getURL('terms.json');
@@ -35,12 +40,20 @@ function myFunction(){
                         // If string contains term
                         if ((string).indexOf(obj.term) > -1) {
                             counter++;
-                            // STYLING TO DO HERE
-                            var s = obj.term + ": " + obj.description + "\n\n"
-                            var tempDiv = document.createElement("div");
-                            var tempNode = document.createTextNode(s);
-                            tempDiv.appendChild(tempNode);
-                            document.body.append(tempDiv);
+
+                            // STYLING TO DO HERE                            
+                            var term = document.createElement("div");
+                            term.className = 'term';
+                            var tempNode = document.createTextNode(obj.term);
+                            term.appendChild(tempNode);
+
+                            var def = document.createElement("div");
+                            def.className = 'def';
+                            tempNode = document.createTextNode(obj.description);
+                            def.appendChild(tempNode);
+
+                            term.appendChild(def);
+                            document.body.append(term);
 
                         }
                     }
@@ -49,7 +62,7 @@ function myFunction(){
                         document.getElementById("title").textContent = "Nothing Found!";
                     else
                         document.getElementById("title").textContent = "Words Found:";
-                }, 3000);
+                }, 1500);
             });
         })
     });

@@ -1,0 +1,29 @@
+.foundWord{
+    position: relative;
+    background: rgba(91, 207, 91, 0.473);
+}
+
+.foundWord .definition{
+    visibility: hidden;
+    width : 250px;
+    background-color: antiquewhite;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position:absolute;
+    z-index: 1;
+    bottom: 130%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    left: 50%;
+    margin-left: -100px;
+    color: black;
+    opacity: 0;
+    transition: opacity 1s;
+    text-transform: none;
+}
+
+.foundWord:hover .definition{
+    visibility: visible;
+    opacity: 1;
+}

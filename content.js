@@ -2,6 +2,7 @@ url = chrome.runtime.getURL('terms.json');
 counter = 0;
 found = []
 
+
 fetch(url)
 .then((response) => response.json()) // file contains json
 .then((json) => {
@@ -11,6 +12,7 @@ fetch(url)
             // Entry
             var obj = json[i];
             var term = String(obj.term).toLowerCase();
+            var definition = String(obj.description)
 
             // Get location of all instances of term
             var result = document.evaluate(("//text()[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" + term +"')]"), document, null, XPathResult.ANY_TYPE, null);
@@ -20,6 +22,7 @@ fetch(url)
             while (node = result.iterateNext()){
                 if (!(node.textContent.includes("{") || node.textContent.includes("}"))){
                     nodes.push(node);
+                    console.log(node);
                 }
             }
 
@@ -28,42 +31,15 @@ fetch(url)
                 var oldNode = nodes[j];
                 var s = oldNode.nodeValue;
                 var parentNode = oldNode.parentNode;
-                var effects = '<span style="background-color: #C9FF9F">' + term + '</span>'
+                var effects = '<span class="foundWord">' + term + '<span class="definition">' + definition + "</span></span>"
                 var s1 = s.replace(term, effects);
                 if (parentNode){
-                    parentNode.innerHTML = s1
+                    parentNode.innerHTML = parentNode.innerHTML.replace(s,s1)
                 }
                 else {
-                    oldNode.innerHTML = s1
+                    oldNode.innerHTML = oldNode.innerHTML.replace(s,s1)
                 }
             }
         }
-    }, 5000);
+    }, 3000);
 });
-
-        // OY
-
-        // url = chrome.runtime.getURL('terms.json');
-        // counter = 0;
-        // found = []
-        // console.log(document);
-
-        // fetch(url)
-        // .then((response) => response.json()) // file contains json
-        // .then((json) => {
-        //     setTimeout(function() {
-                
-        //         for (var i = 0; i < json.length; i++){
-        //             var obj = json[i];
-        //             if ((document.documentElement.textContent || document.documentElement.innerText)
-        //             .indexOf(obj.term) > -1) {
-        //                 console.log(obj.term + ": " + obj.description)
-        //                 found[counter];
-        //                 counter++;
-        //             }
-        //         }
-        //         console.log(counter);
-        //     }, 5000);
-        // }); 
-
-
